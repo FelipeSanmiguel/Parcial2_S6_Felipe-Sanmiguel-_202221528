@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Vuelo} from './vuelo';
+import { Aerolinea } from './aerolinea';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { HomeService } from './Home.service';
 
 @Component({
   selector: 'app-Home',
@@ -7,9 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  aerolineas: Array<Aerolinea> = [];
+  selectedAerolinea: Aerolinea | null = null;
+
+  constructor(private homeService: HomeService) { }
 
   ngOnInit() {
+    this.homeService.getAerolineas().subscribe(aerolineas => {
+      this.aerolineas = aerolineas;
+    });
   }
 
 }
